@@ -1,0 +1,35 @@
+
+
+<ion-content class="ion-padding">
+  <ion-header>
+    <ion-toolbar class="bg-transparent">
+      <div class="loc">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="auto" class="ion-align-self-center" routerLink="/dashboard/home-screen">
+            <div class="fs-1 text-primary mt-20">
+              <ion-icon name="arrow-back-circle-outline"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="location-search-box mt-20 py-0" [formGroup]="searchForm">
+              <ion-searchbar  formControlName="searchCtrl"
+                class="rounded-pill no-shadow py-0" 
+                placeholder="Enter Location, Pincode, Area">
+              </ion-searchbar>
+            </div>
+          </ion-col>
+        </ion-row>
+        
+      </div>
+      
+  
+      <div class="location-result mt-3" *ngIf="locations && locations.length">
+        <ion-item *ngFor="let item of locations" (click)="onLocationSelect(item)">
+          <ion-label>
+            {{item.label}}
+          </ion-label>
+        </ion-item>      
+      </div>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>

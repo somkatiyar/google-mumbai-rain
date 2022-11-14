@@ -1,0 +1,40 @@
+
+
+ion-content {
+    --background: var(--mr-white);
+    color: var(--ion-color-primary);
+    ion-toolbar {
+        --background: var(--mr-white);
+        color: var(--ion-color-primary);
+    }
+    .news-slider {
+        .swiper {
+            .swiper-slide {
+                display: inline-flex;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    ion-card {
+        ion-card-content {
+            .news-image {
+                height: 95px;
+                border-radius: 5px;
+                overflow: hidden;
+            
+                img {
+                    max-width: 190%;
+                }
+            }
+        }
+    }
+}
+
+
+#nodata {
+    margin-top: 130px;
+    text-align: center;
+    font-size: 20px;
+    color: gray;
+}

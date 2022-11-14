@@ -1,0 +1,139 @@
+
+
+ion-header {
+    ion-toolbar {
+     --background: #F3FBFF;
+     border-bottom: 1px solid var(--mr-gray-400);
+    }
+ }
+ ion-content {
+       overflow-y: auto;
+     --overflow-y: auto;
+     --background: #F3FBFF;
+         position: relative;
+        .video-preview-body {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: var(--mr-gradient-color-200);
+            margin: 20px;
+        }
+        .cupan-list {
+            font-size: 18px;
+
+
+            ion-accordion {
+                .coupon-card {
+                    padding: 19px 20px;
+                    border-radius: 26px;
+                    color: var(--ion-color-primary);
+                    background-color: #cdc3b9;
+                    img {
+                        max-width: 37%;
+                    }
+                    .voucher {
+                        font-size: 13px;
+                        input {
+                            margin-top: 5px;
+                            border-radius: 10px;
+                            margin-right: 5px;
+                        }
+                        
+                    }
+                    button {
+                        margin-top: 7px;
+                        padding: 12px 12px;
+                        border-radius: 3px;
+                    }
+                }
+           }
+        }
+     .claim-prize-bg {
+         .claim-prize-body {
+             background-color: #F3FBFF;
+             padding: 20px 20px 55px;
+             .upload-video {
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 height: 138px;
+                 border: 1px dashed var(--mr-gray-600);
+         
+                 span {
+                     display: block;
+                     ion-icon {
+                         font-size: 30px;
+                         color: var(--mr-gray-500);
+                     }
+                 }
+             }
+             .claim-prize-video {
+                 position: relative;
+                 height: 138px;
+                 border: 1px dashed var(--mr-gray-600); 
+                 .trash-bin {
+                     position: absolute;
+                     width: 20px;
+                     height: 20px;
+                     background-color: var(--mr-white);
+                     border-radius: 3px;
+                     color: var(--ion-color-danger);
+                     top: 10px;
+                     right: 10px;
+                     display: inline-flex;
+                     justify-content: center;
+                     align-items: center;
+                    z-index: 9999999;
+                     ion-icon {
+                         font-size: 10px;
+                     }
+                 }
+             }
+         }
+         .claim-prize-cupan-bg {
+             position: absolute;
+             background-color: var(--mr-white);
+             color: var(--mr-black);
+             border-radius: 20px 20px 0px 0px;
+             margin-top: -20px;
+             box-shadow: 0px 0px 8px #00000017;
+             height: 280px;
+             bottom: 0;
+             right: 0;
+             left: 0;
+     
+             .claim-prize-cupan-header {
+                 border-bottom: 1px solid var(--mr-gray-400);
+                 padding: 20px;
+             }
+             .claim-prize-cupan-body-content {
+                 padding: 20px;
+     
+                 .cupan-code {
+                     border: 1px dashed var(--mr-gray-600);
+                     border-radius: 6px;
+                     pad: 5px;
+     
+                     .cupan-copy {
+                         background-color: var(--mr-white);
+                         border: 1px solid var(--mr-gray-300);
+                         border-radius: 3px;
+                         margin-left: 15px;
+                         //font-size: 8px;
+                         padding: 1px 8px;
+     
+                         ion-icon {
+                             font-size: 10px;
+                             padding-left: 3px;
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+ .pending_status {
+    font-size: 15px;
+    color: green;
+    font-weight: 600;
+ }

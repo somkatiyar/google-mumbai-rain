@@ -1,0 +1,27 @@
+
+@import '~swiper/scss';
+@import '~@ionic/angular/css/ionic-swiper';
+
+ion-content {
+    background: var(--mr-white);
+    --background: var(--mr-white);
+
+    button {
+        background-color: var(--mr-white);
+        border: none;
+        color: var(--ion-color-primary);
+        text-transform: capitalize;
+        border: 1px solid var(--ion-color-primary);
+        padding: 8px 16px;
+    }
+}
+
+.slider-bg {
+    position: relative;
+   // top: 50%;
+   // transform: translateY(-50%);
+}
+
+ion-card-title {
+    color: #000000;
+}

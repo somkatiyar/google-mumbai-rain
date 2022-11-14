@@ -1,0 +1,402 @@
+
+<ion-content>
+  <div class="pre-loader" style="visibility: hidden;" id="preLoader">
+    <span class="loader m-20"></span>
+  </div>
+  <ion-header class="userheader">
+    <ion-toolbar class="px-20">
+      <ion-row class="px-0 ion-align-items-center">
+        <ion-col size="8" class="ps-0">
+          <ion-title class="px-0" routerLink="/dashboard/home-screen">Home</ion-title>
+        </ion-col>
+        <ion-col size="2" class="ion-text-end pe-0" (click)="refresh()">
+          <span class="logout ion-activatable ripple-parent">
+            <ion-icon name="refresh"></ion-icon>
+            <ion-ripple-effect></ion-ripple-effect>
+          </span>
+        </ion-col>
+        
+        <ion-col size="2" class="ion-text-end pe-0" (click)="logOut()">
+          <span class="logout ion-activatable ripple-parent">
+            <ion-icon name="log-out"></ion-icon>
+            <ion-ripple-effect></ion-ripple-effect>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="user-details-bg">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="8" class="ps-0">
+        <span>
+          Hello
+          <img src="assets/img/hands-helping.svg" alt="">
+        </span>
+        <h2 class="my-0 pb-0">{{users && users.contestant_name}}</h2>
+      </ion-col>
+    
+      <ion-col size="4" class="ion-text-end pe-0">
+        <div class="user-img" id="profile-modal">
+          <img [src]="users && users.profile_image ? users.profile_image:'assets/img/user-01.png'" alt="">
+          <div class="edit-profile">
+            <ion-icon name="camera" class="d-block">click</ion-icon>
+            <span class="text-white d-block">click me</span>
+          </div>
+        </div>
+       
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="px-0 ion-align-items-center mt-5">
+      <ion-col class="ps-0" size="6">
+        <button hidden id="start-prediction-modal"></button>
+        <div (click)="startPrediction()" class="start-prediction-btn ion-activatable ripple-parent">
+          Forecast to Win
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="pe-0">
+        <div class="user-points ion-text-end">
+          <strong class="fs-4">{{users && users.last_score ? users.last_score :'0'}}</strong>
+          <p class="mb-0">Your Points</p>
+        </div>
+      </ion-col>
+    </ion-row>
+   <div class="forecast-detail">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6" class="px-0 ion-text-start">
+        <div class="participient">
+          <span class="text-primary d-block">{{submitRainStatus && submitRainStatus.ParticipationMsg}}</span>
+          <strong class="d-block fs-4 ion-text-center">{{submitRainStatus && submitRainStatus.LastCount}}</strong>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="px-0 ion-text-end">
+        <div class="forecast-summary text-primary">
+          <span class="text-primary">Last Forecast/ </span>
+          <span>Actual </span>
+          <strong *ngIf="submitRainStatus && submitRainStatus.rain_predicted_last" class="text-primary ion-text-center fw-bolder">{{submitRainStatus && submitRainStatus.rain_predicted_last }}mm /</strong>
+          <strong *ngIf="submitRainStatus && !submitRainStatus.rain_predicted_last" class="text-primary ion-text-center fw-bolder">NA /</strong>
+
+          <strong class="text-primaryfw-bolder"> {{submitRainStatus && submitRainStatus.rain_actual }}mm</strong>
+          <span *ngIf="submitRainStatus && submitRainStatus.rain_predicted" class="d-block ion-text-center ">Todays Forecast <strong class="fw-bold">{{submitRainStatus && submitRainStatus.rain_predicted }}mm</strong></span>
+          <span *ngIf="submitRainStatus && !submitRainStatus.rain_predicted" class="d-block ion-text-center ">Todays Forecast <strong class="fw-bold">NA</strong></span>
+
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+
+        <ion-col size="5">
+          <span *ngIf="voucherStatus" class="redeme-voucher" (click)="videoUpload(users && users.contestant_mobile)">Redeem voucher {{getCoupleStatus(users && users.video)}}</span>
+        </ion-col>
+     
+    </ion-row>
+   </div>
+    <button id="success-popover" type="button" class="py-10 rounded-4" hidden>open popover</button>
+  </div>
+
+  <div class="leaderboard-bg">
+    <div class="leaderboard-head">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="9" class="ps-0">
+          <h2 class="my-0 pb-0">Leaderboard</h2>
+          <span class="your-position">Your current position - <strong>{{users && users.last_rank ? users.last_rank : '0'}}</strong></span>
+        </ion-col>
+        <ion-col size="3" class="ion-text-end pe-0">
+          <div class="btn-filter">
+            <span class="ion-activatable ripple-parent" [ngClass]="leaderboardTime == 'daily' ? 'active' : ''" (click)="onChangeLeaderbordTime('daily')">
+              D
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+            <span class="ion-activatable ripple-parent" [ngClass]="leaderboardTime == 'weekly' ? 'active' : ''" (click)="onChangeLeaderbordTime('weekly')">
+              W
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+            <span class="ion-activatable ripple-parent" [ngClass]="leaderboardTime == 'monthly' ? 'active' : ''" (click)="onChangeLeaderbordTime('monthly')">
+              M
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="leaderboard">
+      <!-- item -->
+      <div class="leaderboard-item" *ngFor="let item of leaderBoard">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2">
+            <img [src]="item && item.profile_image ? item.profile_image:'assets/img/user-01.png'" alt="">
+            <!-- <span class="no-image">{{getNameChar(item && item.contestant_name)}}</span> -->
+          </ion-col>
+          <ion-col size="7">
+            <h3 class="my-0 pb-0">{{item.contestant_name}}</h3>
+            <span class="points">{{item.score ? item.score :'0'}} Points</span>
+          </ion-col>
+          <!-- <ion-col size="3">
+            <div class="position">
+              <span class="position-icon green">
+                <ion-icon name="caret-up"></ion-icon>
+              </span>
+              <span class="position-value">1</span>
+            </div>
+          </ion-col> -->
+        </ion-row>
+      </div>
+   
+    </div>
+  </div>
+
+  <div class="winner-bg pt-10 pb-20">
+    <div class="winner-head">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="9" class="ps-0">
+          <h2 class="my-0 pb-0">Winner</h2>
+        </ion-col>
+        <ion-col size="3" class="ion-text-end pe-0">
+          <div class="btn-filter">
+            <span class="ion-activatable ripple-parent" [ngClass]="winnerTime == 'daily' ? 'active' : ''" (click)="onChangeWinnerTime('daily')">
+              D
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+            <span class="ion-activatable ripple-parent" [ngClass]="winnerTime == 'weekly' ? 'active' : ''" (click)="onChangeWinnerTime('weekly')">
+              W
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+            <span class="ion-activatable ripple-parent" [ngClass]="winnerTime == 'monthly' ? 'active' : ''" (click)="onChangeWinnerTime('monthly')">
+              M
+              <ion-ripple-effect></ion-ripple-effect>
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="winner-body mt-10">
+      <swiper [config]="nSlider" #winnerSlider>
+        <ng-template swiperSlide   *ngFor="let item of winners">
+          <div class="winner-item ion-text-center ms-20">
+           <div class="winner-img">
+            <img [src]="item && item.profile_image ? item.profile_image:'assets/img/user-01.png'" alt="" (click)="winnerPage(item)"> 
+            <!-- <span class="bg-overlay">
+              <ion-icon name="eye-sharp"></ion-icon>
+             </span>  -->
+           </div> 
+           <span class="d-block blink_me">Click Me</span>    
+            <h5 class="mt-0">{{item.contestant_name}}</h5>
+            <span class="location">Mumbai</span>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+  </div>
+  <ion-footer>
+    <ion-toolbar>
+      <div class="footer-nav">
+        <span class="ion-activatable ripple-parent">
+          <ion-icon name="home" routerLink="/dashboard/home-screen"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </span>
+        <span class="ion-activatable ripple-parent" id="notification-modal">
+          <small></small>
+          <ion-icon name="notifications"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </span>
+        <span class="ion-activatable ripple-parent" id="prediction-history-modal">
+          <ion-icon name="timer-outline"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </span>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>
+
+<ion-modal #modal  trigger="success-popover" [initialBreakpoint]="0.40" [breakpoints]="[0, 0.40]">
+  <ng-template>
+    <ion-buttons class="fs-2 mx-20 mt-25 ion-justify-content-end d-flex text-primary">
+      <ion-icon name="close-circle-outline" (click)="rainfallModalClose()" class=" text-primary"></ion-icon>
+    </ion-buttons>   
+    <ion-content class="bg-white">
+      <ion-content class="ion-padding">
+        <div class="rounded-15 bg-white text-primary">
+          <h2 class="fs-3 fw-bold my-0 text-praimary">Congratulations!</h2>
+          <span class="fs-4 d-block pt-20 text-primary">
+            You have successfully submitted your forecast for the contest. We will inform you as soon as the results are out.
+          </span>
+        </div>
+        <div class="our-social">
+          <share-buttons theme="circles-dark"
+          [include]="['facebook','linkedin','telegram','twitter','whatsapp']"
+          [showIcon]="true"
+          [showText]="false"
+          [url]="'https://play.google.com/store/apps/details?id=com.skymet.mumbairain'"
+          description="Mumbai Rain"
+          twitterAccount="SkymetWeather"
+          class="pt-5">
+          </share-buttons>
+        </div>
+      </ion-content>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- start prediction modal -->
+<ion-modal #modal trigger="start-prediction-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <ion-buttons class="fs-2 mx-20 mt-25 ion-justify-content-end d-flex text-primary">
+      <ion-icon name="close-circle-outline" (click)="rainfallModalClose()" class=" text-primary"></ion-icon>
+    </ion-buttons>   
+    <ion-content class="bg-white">
+      <div class="prediction-bg mt-10">
+       <div class="predictRain">
+         <!-- start weather station -->
+         <div class="weather-station">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="2">
+              <span class="weather-station-icon">
+                <img src="assets/img/aws.svg" alt="">
+              </span>
+            </ion-col>
+            <ion-col size="9" class="px-10">
+              Weather Station: <br />
+              <strong>{{availableContest && availableContest.station_name}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center ion-align-items-center">
+            <!-- <ion-col size="auto"><b>From:</b></ion-col>
+            <ion-col>{{availableContest && availableContest.valid_from_date | date: 'dd/MM/yyyy'}}</ion-col> -->
+            <!-- <ion-col size="auto"><b>Constent available till:</b></ion-col>
+            <ion-col>{{availableContest && availableContest.valid_to_date | date: 'dd/MM/yyyy'}}</ion-col> -->
+            <ion-col>
+              <p class="mb-0">
+                Forecast rain for this time period:-
+              </p>
+              <b>{{availableContest && availableContest.rain_period_from | date: 'dd/MM/yyyy hh:mm a'}} </b>
+              to 
+              <b>{{availableContest && availableContest.rain_period_to | date: 'dd/MM/yyyy hh:mm a'}}</b>
+            </ion-col>
+          </ion-row>
+        </div>
+        <!-- end weather station -->
+    
+        <div class="prediction-form mt-25">
+          <label>Enter your rain forecast value</label>
+          <!-- <span class="d-flex ion-justify-content-end fs-4" >
+            <ion-icon name="eye" title="You can't enter 0 and one digit allowed after decimal, eg-22.6,1.9"></ion-icon>
+          </span> -->
+          <ion-input id="rainPreValueID"  class="mt-5" placeholder="eg.: 2mm" [(ngModel)]="rainPreValue" type="number" (keyup)="onChangerainVal($event)"></ion-input>
+          <ion-button class="mt-20" (click)="submitRainPred()" [disabled]="chkRainContest(availableContest && availableContest)">Submit</ion-button>
+        </div>
+       </div>
+        <div class="contest-rules">
+          <h2 class="fs-3">Contest Rules, Terms & Conditions</h2>
+          <ng-container *ngFor ="let item of TandC">
+            <p *ngIf="item.tnc_type =='p'">
+             {{item.tnc}} 
+            </p>
+            <ul *ngIf="item.tnc_type =='li'">
+              <li [innerHTML]="htmlDecode(item.tnc)"></li>
+            </ul>
+          </ng-container>
+        
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<!-- start prediction modal -->
+
+<!-- start profile modal -->
+<ion-modal #modal trigger="profile-modal" [initialBreakpoint]="0.60" [breakpoints]="[0, 0.25, 0.60]">
+  <ng-template>
+    <ion-content class="bg-white">
+      <div class="profile-bg mt-10">
+        <div class="profile-form">
+          <label>Profile Pic</label>
+          <div class="choose-file ion-text-center mt-5" (click)="takePicture()" *ngIf="!imageUrl">
+            <ion-icon name="add"></ion-icon>
+            <span>Choose Image</span>
+          </div>
+          <div class="choose-file ion-text-center mt-5" (click)="removePicture()" *ngIf="imageUrl">
+            <span class="profileImage">
+              <ion-icon name="close-circle-outline" class="closebtn"></ion-icon>
+              <img [src]="imageUrl" alt="" style="height: 150px;">
+            </span>
+          </div>
+          
+          <ion-button class="mt-20" (click)="uploadPic()">Update</ion-button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<!-- start profile modal -->
+
+<!-- start notification modal -->
+<ion-modal #modal trigger="notification-modal" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.55, 0.75, 0.90]">
+  <ng-template>
+    <ion-content class="bg-white">
+      <div class="notification-bg mt-10">
+        <h2 class="mt-0 fs-3">Notification <span class="badge">{{notifications && notifications.length}}</span></h2>
+
+        <!-- item -->
+        <div class="notification-item winner" *ngFor="let item of notifications">
+         
+          <p>{{item.msg}}</p>
+          <span>{{item.created_on }} </span>
+        </div>
+ 
+    
+        <!-- start no notification -->
+        <div class="no-notification mt-20" *ngIf="!notifications">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="9">
+              There are <br />
+              <strong>no new notifications</strong>
+            </ion-col>
+            <ion-col size="3" class="ion-text-end">
+              <span class="notification-icon">
+                <ion-icon name="notifications"></ion-icon>
+              </span>
+            </ion-col>
+          </ion-row>
+        </div>
+        <!-- end no notification -->
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<!-- start notification modal -->
+
+<!-- start prediction history modal -->
+<ion-modal #modal trigger="prediction-history-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <ion-buttons class="fs-2 mx-20 mt-25 ion-justify-content-end d-flex text-primary">
+      <ion-icon name="close-circle-outline" (click)="rainfallModalClose()" class="text-primary"></ion-icon>
+    </ion-buttons>  
+    <ion-content class="bg-white">
+      <div class="prediction-history-bg mt-10">
+        <h2 class="fs-3 mt-0">Prediction History</h2>
+        <!-- item -->
+        <div class="item mb-10" *ngFor="let item of users['contest_history']">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="6">
+              <strong>{{item.station_name}}</strong>
+              <p>Your Prediction <strong>{{item.rain_predicted}}mm</strong></p>
+            </ion-col>
+            <ion-col size="3">
+              <p *ngIf="!item.rain_actual">Actual Rain <strong>{{item.rain_actual ? item.rain_actual :'NA'}}</strong></p>
+              <p *ngIf="item.rain_actual">Actual Rain <strong>{{item.rain_actual ? item.rain_actual :'NA'}}mm</strong></p>
+
+            </ion-col>
+            <ion-col size="3" class="px-0">
+              <span class="date">{{item.date}}</span>
+              <p>Points <strong>{{item.score ? item.score : '0'}}</strong></p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<!-- start prediction history modal -->

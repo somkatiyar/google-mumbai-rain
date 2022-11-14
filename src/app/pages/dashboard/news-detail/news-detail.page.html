@@ -1,0 +1,68 @@
+
+
+
+<ion-content class="ion-padding">
+  <div class="news-details">
+    <ion-header>
+      <ion-toolbar>
+        <ion-row class="ion-align-items-center px-0">
+          <ion-col size="auto" class="ps-0">
+            <span class="fs-3 back-btn"><ion-icon name="chevron-back"></ion-icon></span>
+          </ion-col>
+          <ion-col class="ion-align-self-start px-0" (click)="goBack()">
+            <span class="fw-bold ">Back</span>
+          </ion-col>
+          <ion-col size="auto">
+            <span class="fs-3 text-primary">
+              <!-- <ion-icon name="share-social"></ion-icon> -->
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+  <ion-card class="no-shadow mx-0 my-0 text-primary" *ngIf="newDetail">
+    <ion-card-content class="text-primary m-0 px-0 py-0">
+      <span class="d-block fs-5 half-opc">{{newDetail && newDetail.date}},{{newDetail && newDetail.time}}</span>
+      <span class="d-block fw-bold fs-3">
+       {{newDetail && newDetail.title}}
+      </span>
+      <div class="news-detail-img mt-10 mb-10">
+        <img [src]="newDetail && newDetail.image ? newDetail.image : 'assets/img/noimage.png'" alt="" class="w-100 rounded-6">
+      </div>
+      <p class=" mt-20" [innerHTML]="newDetail && newDetail.content">
+        <!-- {{newDetail && newDetail.content}}  -->
+      </p>
+    
+    </ion-card-content>
+  </ion-card>
+  <!-- <div class="related-news mt-20">
+    <h1 class="fs-3 fw-bold">Related Articles</h1>
+    <ion-card class="py-10 px-10 mx-0 drop-shadow">
+      <ion-card-content>
+        <ion-row class="ion-align-item-center">
+          <ion-col>
+            <span class="text-primary">Mumbai: IMD declares arrival of southwest monsoon after over</span>
+           <span class=" fs-5 d-block pt-5">The IMD on Saturday declared the arrival of southwest monsoon over</span>
+           <small class="d-block pt-10 half-opc">The Times of India . 23 hours ago</small>
+          </ion-col>
+          <ion-col size="auto">
+            <img src="../../../../assets/img/latest-news.png" alt="">
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="py-10 px-10 mx-0 drop-shadow">
+      <ion-card-content>
+        <ion-row class="ion-align-item-center">
+          <ion-col size="12">
+            <span class="text-primary">Mumbai: IMD declares arrival of southwest monsoon after over</span>
+           <span class=" fs-5 d-block pt-5">The IMD on Saturday declared the arrival of southwest monsoon over</span>
+           <small class="d-block pt-10 half-opc">The Times of India . 23 hours ago</small>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div> -->
+</ion-content>

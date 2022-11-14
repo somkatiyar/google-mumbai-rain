@@ -1,0 +1,124 @@
+
+
+#directionMap { 
+    position: relative; 
+    top: 0; 
+    bottom: 0; 
+    height: 100vh !important;
+}
+
+#instruction_toggle {
+  position: absolute;
+  border-radius: 5px;
+  top: 149px;
+  right: 18px;
+  z-index: 99999;
+  font-size: 1.5rem;
+}
+
+#layerIcon {
+    position: absolute;
+    color: black;
+    right: 10px;
+    bottom: 19px;
+    background: white;
+    height: 35px;
+    width: 35px;
+    padding: 6px;
+    border-radius: 5px;
+    z-index: 9999999;
+  }
+
+  #layerIcon  img{
+    max-width: 100%;
+    border: 0;
+  }
+
+  .show {
+    display: block !important;
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+
+.ios{
+  ion-toggle {
+      display: block;
+      z-index: 9999;
+      right: 35%;
+      margin-top: 51px;
+      --background: var(--mr-gray-500);
+      --background-checked: #7ecd7e;
+      --handle-background-checked: var(--mr-white);
+      width: 40px;
+      height: 20px;
+      --handle-width: calc(22px - (2px * 2));
+      --handle-height: calc(22px - (2px * 2));
+      --handle-spacing: 1px;
+  }
+  .mapboxgl-ctrl-top-right {
+    top: 40px !important;
+    z-index: 9999;
+ }
+  .mapboxgl-ctrl-directions {
+    min-width: 260px;
+    //max-width: 265px;
+    z-index: 9999;
+  }
+}
+
+.mapbox-directions-instructions {
+display: none ;
+}
+
+.md{
+  .instructionBtn {
+    position: relative;
+    .route-btn {
+      display: block;
+      z-index: 9999;
+      right: 7%;
+      margin-top: 15px;
+      color: var(--mr-white);
+      --background: var(--mr-gray-500);
+    }
+  }
+  ion-toggle {
+    display: block;
+    z-index: 9999;
+    right: 7%;
+    margin-top: 15px;
+    --background: var(--mr-gray-500);
+    --background-checked: #7ecd7e;
+    --handle-background-checked: var(--mr-white);
+    width: 40px;
+    height: 20px;
+    --handle-width: calc(22px - (2px * 2));
+    --handle-height: calc(22px - (2px * 2));
+    --handle-spacing: 1px;
+  }
+  .mapboxgl-ctrl-top-right {
+    top: 15px !important;
+    z-index: 9999;
+ }
+  .mapboxgl-ctrl-directions {
+    min-width: 260px;
+    //max-width: 265px;
+    z-index: 9999;
+  }
+}
+.mapbox-directions-multiple {
+  min-height: 40px;
+  padding-right: 40px;
+
+}
+.mapbox-directions-routes input[type=radio] + label {
+  background-color: rgba(255,255,255,0.10);
+  float: left;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-left: 6px;
+}

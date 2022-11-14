@@ -1,0 +1,80 @@
+
+
+<ion-content class="ion-padding">
+  <ion-header>
+    <ion-toolbar>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="auto" class="ps-0">
+          <span class="fs-3 back-btn"><ion-icon name="chevron-back"></ion-icon></span>
+        </ion-col>
+        <ion-col class="ion-align-self-start" (click)="goBack()">
+          <span class="fw-bold fs-4">Settings</span>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <div class="unit mt-20">
+    <span class="fs-4 fw-bold">Unit</span>
+    <div class="px-10 bg-white drop-shadow rounded-6 mt-5 text-primary py-10">
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bold">Weather</span>
+        </ion-col>
+        <ion-col size="auto" class="px-0">
+          <ion-toggle></ion-toggle>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bold">Wind</span>
+        </ion-col>
+        <ion-col size="auto" class="px-0">
+          <ion-toggle></ion-toggle>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+  <div class="notification mt-20">
+    <span class="fs-4 fw-bold">Notifications</span>
+    <div class="bg-white text-primary drop-shadow rounded-6 px-10 py-10 mt-5">
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bold">Watering Alert</span>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-toggle></ion-toggle>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bold">Waterlog Alert</span>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-toggle></ion-toggle>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div class="feedback-review mt-20">
+    <div class="bg-white drop-shadow rounded-12 text-primary px-10 py-10 mt-5">
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bold">Review</span>
+        </ion-col>
+        <ion-col size="auto" class="me-10">
+          <ion-icon name="chevron-forward-outline" class="fs-4"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bold">Feedback</span>
+        </ion-col>
+        <ion-col size="auto" class="me-10">
+          <ion-icon name="chevron-forward-outline" class="fs-4"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <span class=" text-tertiary pt-10 d-block">Tell use about the exprience with the app</span>
+</ion-content>

@@ -1,0 +1,133 @@
+
+<ion-content>
+
+  <ion-header>
+    <ion-toolbar class="login-header">
+      <ion-title (click)="goBack()" class="px-20">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- <div class="pre-loader" style="display:none;" id="abc">
+    <span class="loader m-20"></span>
+  </div> -->
+  <!-- start enter your name -->
+  <button id="contestRules-modal" #openTerms hidden>Clickme</button>
+
+  <div *ngIf="modelIndex == 0">
+    <div class="step-bg">
+      <div class="step current"></div>
+      <div class="step"></div>
+      <div class="step"></div>
+    </div>
+    <div class="mx-20 text-primary ion-text-center heading-content">
+      <h1 class="fs-3 my-0">
+        Forecast Rain & Win
+      </h1>
+      <p class="mt-5 fs-3">
+         <strong>&#8377;100000</strong>
+      </p>
+      <h1 class="fs-2 mt-5">
+        * Amazon Voucher
+      </h1>
+
+      <img src="assets/img/rain-banner.svg" alt="">
+    </div>
+    <div class="login-form">
+      <label>Enter your full name</label>
+      <ion-input class="mt-10" placeholder="Enter your name" [(ngModel)]="name"></ion-input>
+      <ion-button class="mt-20" (click)="modelIndexChange(1)">Next</ion-button>
+    </div>
+  </div>
+  
+  <!-- end enter your name -->
+
+  <!-- start enter your mobile number -->
+  <div *ngIf="modelIndex == 1">
+    <div class="step-bg">
+      <div class="step finished"></div>
+      <div class="step current"></div>
+      <div class="step"></div>
+    </div>
+    <div class="mx-20 text-primary ion-text-center heading-content">
+      <h1 class="fs-3 mb-0">Mobile Number</h1>
+      <p class="mt-5">We need to send OTP to authenticate your number</p>
+      <!-- <h1 class="fs-2 mt-5">* Amazone Voucher</h1> -->
+
+      <img src="assets/img/mobile-banner.svg" alt="">
+    </div>
+    <div class="login-form">
+      <label>Enter your Mobile No</label>
+      <ion-input class="mt-10" 
+       placeholder="eg.: 8888888888"
+      [(ngModel)]="mobile" type="number"></ion-input>
+      <div class="d-flex align-items-center pt-20" >
+        <ion-checkbox checked  (ionChange)="terms($event);openTerms.click()"></ion-checkbox>
+        <span class="text-primary d-inline-flex ion-align-items-center fs-4 fw-bold ms-5">Accept Contest Rules, Terms & Condition</span>
+      </div>
+      <ion-button class="mt-20" (click)="modelIndexChange(2)">Next</ion-button>
+    </div>
+  </div>
+  <!-- end enter your mobile number -->
+
+  <!-- start enter otp -->
+  <div class="otp-bg" *ngIf="modelIndex == 2 && temrmsCondiation">
+    <div class="step-bg">
+      <div class="step finished"></div>
+      <div class="step finished"></div>
+      <div class="step current"></div>
+    </div>
+    <div class="mx-20 text-primary ion-text-center heading-content">
+      <h1 class="fs-3 mb-0">OTP</h1>
+      <p class="mt-5">Please enter the OTP sent to your mobile number</p>
+
+      <img src="assets/img/otp-banner-02.svg" style="max-width: 170px;" alt="">
+    </div>
+    <div class="login-form">
+      <ion-row>
+        <ion-col class="ps-0">
+          <ion-input [(ngModel)]="otp" placeholder="Enter OTP"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-button class="mt-20" (click)="modelIndexChange(3)">Next</ion-button>
+
+      <div class="resend-otp ion-text-center mt-20">
+        <p class="mb-0">Didn't receive an OTP?</p>
+        <strong (click)="sendOtp()" [ngClass]="otp_Active ? '' : 'otpfade'">Resend OTP</strong>
+        
+      </div>
+      <div style="text-align:center;display: none;" [ngClass]="otp_Active ? 'hideResend' : 'showResend'">
+        <span class="text-primary">Resend OTP after 90 sec: <b>00:{{this.counter}}</b></span>
+      </div>
+    </div>
+  </div>
+  <!-- end enter otp -->
+</ion-content>
+
+
+ <!-- start contest rules modal -->
+ <ion-modal [hidden]="!temrmsCondiation" #modal trigger="contestRules-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <ion-buttons class="fs-2 mx-20 mt-25 ion-justify-content-end d-flex text-primary">
+      <ion-icon name="close-circle-outline" (click)="rainfallModalClose()" class="text-primary"></ion-icon>
+    </ion-buttons>  
+    <ion-content class="bg-white">
+      <div class="contestRules-bg mt-10">
+        <h2 class="mt-0 fs-3">Contest Rules, Term & Condition</h2>
+        <ng-container *ngFor ="let item of TandC">
+          <p *ngIf="item.tnc_type =='p'">
+           {{item.tnc}} 
+          </p>
+          <ul *ngIf="item.tnc_type =='li'">
+            <li [innerHTML]="htmlDecode(item.tnc)"></li>
+          </ul>
+        </ng-container>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<!-- end notification modal -->
+
+
+  
+

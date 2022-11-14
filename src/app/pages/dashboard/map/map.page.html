@@ -1,0 +1,311 @@
+
+<ion-header class="custom-header">
+    <ion-toolbar>
+        <div class="backtohome mt-10 bg-white rounded-6 mx-10 px-5 mt-20">
+            <ion-row class="ion-align-items-center" >
+                <ion-col size="auto" class="ps-0">
+                    <span class="fs-3 d-inline-block" style="margin-top: 3px;"><ion-icon name="chevron-back"></ion-icon></span>
+                </ion-col>
+                <ion-col class="ps-0 ion-align-self-start" (click)="goBack()">
+                    <span class="fw-bold fs-4 mb-20">Back</span>
+                </ion-col>
+            </ion-row>
+           </div>
+    </ion-toolbar>
+</ion-header>
+
+<div id="map" [hidden]="isDirectionLayer"></div>
+<app-direction-map *ngIf="isDirectionLayer" (mapState)="getMapState($event)"></app-direction-map>
+<div class="container">
+   <!-- <div id="map" #mapElement ></div> -->
+</div>
+<div class="map-source" *ngIf="isLegend && !isDirectionLayer">
+  <span class="btn-content-hide" (click) = "toggleDisplay()">
+      <ion-icon name="chevron-down"></ion-icon>
+  </span>
+  
+   <div class="weather-slider pt-10 px-20">
+    <div class="btn-slider bg-white">
+        <div class="ion-activatable ripple-parent btn-next" (click)="wSlideBtn.swiperRef.slideNext()">
+            <ion-icon  name="chevron-forward-outline"></ion-icon>
+            <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <div class="ion-activatable ripple-parent btn-back" (click)="wSlideBtn.swiperRef.slidePrev()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+            <ion-ripple-effect></ion-ripple-effect>
+        </div>
+    </div>
+       <swiper [config]="wSlider" id="weatherCondition" #weatherCondition>
+          
+          <ng-template swiperSlide >
+               <div class="slider-item text-primary fs-5 text-uppercase">
+                   <div class="wrapper" (change)="changeLayer($event,'water_logging',0)">
+                       <div class="wrapper-item">
+                           <input checked hidden #water_logging type="checkbox" [disabled]="layerArr.length ==1 && layerArr[0]=='water_logging'"
+                            id="water_logging" name="water_logging" [(ngModel)] ="layerModel.water_logging">
+                       </div>
+                       <label [ngClass]="isWaterLayerLoaded ? 'active_layer' : ''"   (click)=water_logging.click()>Water Logging</label>
+                   </div>
+               </div>
+           </ng-template>
+
+    
+           <!-- <ng-template swiperSlide >
+              <div class="slider-item text-primary fs-5 text-uppercase">
+                  <div class="wrapper">
+                      <div class="wrapper-item">
+                          <input type="checkbox" hidden #direction
+                          id="direction" name="direction" (change)="onSelectDirection($event)">
+                      </div>
+                      <label for="vehicle1" (click)="direction.click()">Route</label>
+                  </div>
+              </div>
+          </ng-template> -->
+
+           <ng-template swiperSlide >
+               <div class="slider-item text-primary fs-5 text-uppercase">
+                   <div class="wrapper" (change)="changeLayer($event,'rain_layer',1)">
+                       <div class="wrapper-item">
+                           <input hidden #rain_layer type="checkbox" [(ngModel)] ="layerModel.rain_layer"
+                            id="rain_layer" name="rain_layer">
+                       </div>
+                       <label for="vehicle1" [ngClass]="isRainLayerLoaded ? 'active_layer' : ''" (click)="rain_layer.click()">Rain</label>
+                   </div>
+               </div>
+           </ng-template>
+
+           <ng-template swiperSlide >
+               <div class="slider-item text-primary fs-5 text-uppercase">
+                
+       <div class="wrapper" (change)="changeLayer($event,'heat_layer',2)">
+           <div class="wrapper-item">
+               <input type="checkbox" hidden #heat_layer id="heat_layer" [(ngModel)] ="layerModel.heat_layer"
+                name="heat_layer">
+           </div>
+           <label for="vehicle1" [ngClass]="isHeatLayerLoaded ? 'active_layer' : ''" (click)="heat_layer.click()">Heat Map</label>
+       </div>
+               </div>
+           </ng-template>
+
+           <!-- <ng-template swiperSlide >
+               <div class="slider-item text-primary fs-5 text-uppercase">
+                   <div class="wrapper" (change)="changeLayer($event,'lightning_layer')">
+                       <div class="wrapper-item">
+                           <input type="checkbox" hidden #lightning_layer 
+                           id="lightning_layer"
+                            name="lightning_layer">
+                       </div>
+                       <label for="vehicle1" [ngClass]="isLightningLayerLoaded ? 'active_layer' : ''" (click)="lightning_layer.click()">Lightning</label>
+                   </div>
+               </div>
+           </ng-template> -->
+
+           <ng-template swiperSlide >
+               <div class="slider-item text-primary fs-5 text-uppercase">
+                   <div class="wrapper" (change)="changeLayer($event,'cloud_layer',3)">
+                       <div class="wrapper-item">
+                           <input type="checkbox" hidden  id="cloud_layer" [(ngModel)] ="layerModel.cloud_layer"
+                           #cloud_layer name="cloud_layer" >
+                       </div>
+                       <label for="vehicle1" [ngClass]="isCloudLayerLoaded ? 'active_layer' : ''" (click)="cloud_layer.click()">Cloud</label>
+                   </div>
+               </div>
+           </ng-template>
+
+           <ng-template swiperSlide >
+               <div class="slider-item text-primary fs-5 text-uppercase">
+                   <div class="wrapper" (change)="changeLayer($event,'radar_layer',4)">
+                       <div class="wrapper-item">
+                           <input type="checkbox" hidden #radar_layer  [(ngModel)] ="layerModel.radar_layer"
+                            id="radar_layer" name="radar_layer" >
+                       </div>
+                       <label for="vehicle1" [ngClass]="isRadarLayerLoaded ? 'active_layer' : ''" (click)="radar_layer.click()">Radar</label>
+                   </div>
+               </div>
+           </ng-template>
+
+          
+
+
+           
+
+
+
+
+
+       </swiper>
+   </div> 
+   <div class="map-info-bg">
+      <div class="time-slider pt-10 " id="time-wrapper"  [ngClass]=" enableDisableTimeDiv() ? 'enableEvent' : 'disableEvent'">
+          <ion-row class="ion-align-items-center">
+              <ion-col size="2" class="ion-align-self-start">
+                  <span class=" fw-bold">Select Time</span>
+              </ion-col>
+              <ion-col size="10">
+                 <ion-row>
+                     <ion-col size="3" *ngFor="let t of timeData; let i = index" >
+                         <div  [ngClass]="selectedTimeIndex == i ? 'active' : ''" class="time-item  fs-5 rounded-pill bg-lightdark" >
+                             <span (click)="getTimeData(t.value,i)" >{{t.time}}</span>
+                         </div>
+                     </ion-col>
+                 </ion-row>
+              </ion-col>
+          </ion-row>
+      </div>
+ 
+      <div class="rain pt-10" *ngIf="layerArr[layerArr.length-1] == 'rain_layer'">
+          <ion-row class="ion-aloign-items-center">
+              <ion-col size="2">
+                  <span class="text-tertiary fs-4">Key</span>
+              </ion-col>
+              <ion-col size="10" class="py-0">
+                  <ion-row class="ion-align-items-center">
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary less-rain">Less Rain</span>
+                      </ion-col>
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary light-rain">Light Rain</span>
+                      </ion-col>
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary moderate-rain">Moderate Rain</span>
+                      </ion-col>
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary heavy-rain">Heavy Rain</span>
+                      </ion-col>
+                  </ion-row>
+              </ion-col>
+          </ion-row>
+      </div>
+ 
+      <div class="cloud pt-10" *ngIf="layerArr[layerArr.length-1] == 'cloud_layer'">
+          <ion-row class="ion-aloign-items-center">
+              <ion-col size="2">
+                  <span class="text-tertiary fs-4">Key</span>
+              </ion-col>
+              <ion-col size="10" class="py-0">
+                  <ion-row class="ion-align-items-center">
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary clear-sky">Clear Sky / No Clouds</span>
+                      </ion-col>
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary isolated">Isolated Clouds</span>
+                      </ion-col>
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary half-cloudy">Sky Half Cloudy</span>
+                      </ion-col>
+                      <ion-col size="6">
+                          <span class="fs-5 text-primary full-cloudy">Full Cloud Coverage</span>
+                      </ion-col>
+                  </ion-row>
+              </ion-col>
+          </ion-row>
+      </div>
+ 
+      <div class="water-logging pt-10" *ngIf="layerArr[layerArr.length-1] == 'water_logging'">
+         <ion-row class="ion-aloign-items-center">
+             <ion-col size="2">
+                 <span class="text-tertiary fs-4">Key</span>
+             </ion-col>
+             <ion-col size="10" class="py-0">
+                 <ion-row class="ion-align-items-center">
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary less-waterlogging">Less Water Logging</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary light-waterlogging">Light Water Logging</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary moderate-waterlogging">Medium Water logging</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary heavy-waterlogging">Heavy Water Logging</span>
+                     </ion-col>
+                 </ion-row>
+             </ion-col>
+         </ion-row>
+      </div>
+ 
+      <div class="rain pt-10" *ngIf="layerArr[layerArr.length-1] == 'heat_layer'">
+         <ion-row class="ion-aloign-items-center">
+             <ion-col size="2">
+                 <span class="text-tertiary fs-4">Key</span>
+             </ion-col>
+             <ion-col size="10" class="py-0">
+              <ion-row class="ion-align-items-center">
+                  <ion-col size="6">
+                      <span class="fs-5 text-primary less-rain">Less Rain</span>
+                  </ion-col>
+                  <ion-col size="6">
+                      <span class="fs-5 text-primary light-rain">Light Rain</span>
+                  </ion-col>
+                  <ion-col size="6">
+                      <span class="fs-5 text-primary moderate-rain">Moderate Rain</span>
+                  </ion-col>
+                  <ion-col size="6">
+                      <span class="fs-5 text-primary heavy-rain">Heavy Rain</span>
+                  </ion-col>
+              </ion-row>
+             </ion-col>
+         </ion-row>
+      </div>
+ 
+      <!-- <div class="lightning pt-10" *ngIf="layerArr[layerArr.length-1] == 'lightning_layer'">
+         <ion-row class="ion-aloign-items-center">
+             <ion-col size="2">
+                 <span class="text-tertiary fs-4">Key</span>
+             </ion-col>
+             <ion-col size="10" class="py-0">
+                 <ion-row class="ion-align-items-center">
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary less-lightning">--</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary light-lightning">--</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary moderate-lightning">--</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary heavy-lightning">--</span>
+                     </ion-col>
+                 </ion-row>
+             </ion-col>
+         </ion-row>
+      </div> -->
+ 
+      <div class="radar pt-10" *ngIf="layerArr[layerArr.length-1] == 'radar_layer'">
+         <ion-row class="ion-aloign-items-center">
+             <ion-col size="2">
+                 <span class="text-tertiary fs-4">Key</span>
+             </ion-col>
+             <ion-col size="10" class="py-0">
+                 <ion-row class="ion-align-items-center">
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary less-radar">--</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary light-radar">--</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary moderate-radar">--</span>
+                     </ion-col>
+                     <ion-col size="6">
+                         <span class="fs-5 text-primary full-radar">--</span>
+                     </ion-col>
+                 </ion-row>
+             </ion-col>
+         </ion-row>
+      </div>
+   </div>
+   
+</div>
+<ion-footer class="map-footer">
+    <div class="btn-content-show" (click) = "toggleDisplay()" *ngIf="!isDirectionLayer">
+        <ion-icon name="chevron-up"></ion-icon>
+      </div>
+    <ion-toolbar>
+      
+    </ion-toolbar>
+</ion-footer>
+
+

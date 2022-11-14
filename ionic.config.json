@@ -1,0 +1,7 @@
+{
+  "name": "mumbairain",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

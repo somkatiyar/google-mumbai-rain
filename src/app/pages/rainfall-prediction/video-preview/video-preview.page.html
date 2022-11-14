@@ -1,0 +1,236 @@
+
+
+ <input type="file" id="img" name="img" accept="video/*" hidden #file (change)="onSelectFile($event)" onclick="this.value=null;"/>
+ <ion-header>
+  <ion-toolbar>
+    <ion-title>
+   
+      <ion-row class="ion-align-items-center">
+        <ion-col size="auto" class="ion-align-self-center" routerLink="/rainfall-prediction/user-dashboard">
+          <ion-icon name="arrow-back-outline" class="text-primary pt-10"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <h2 class="fs-3 text-primary">Amazon Voucher</h2>
+        </ion-col>
+        <ion-col size="2" class="ion-text-end pe-0" (click)="refresh()">
+          <span class="logout ion-activatable ripple-parent">
+            <ion-icon name="refresh"></ion-icon>
+            <ion-ripple-effect></ion-ripple-effect>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="pre-loader" style="visibility: hidden;" id="preLoader">
+    <span class="loader m-20"></span>
+  </div>
+
+
+  <div class="video-preview-body drop-shadow text-primary">
+    <b><p class="fs-3">Note.</p></b>
+    <p class="fs-3">Congratulations you are the Mumbai rain contest winner</p>
+    <p class="fs-3">Your voucher is ready.</p>
+    <p class="fs-3">Please upload a short 30 sec with max size 10 MB video to claim your prize</p>
+    <b><p class="fs-3">The video should contain:</p></b>
+    <p class="fs-3">Your name,how you came to know about Mumbai rain app,what was your experience and what are you hopes of winning monthly 1 lac prize.</p>
+  </div>
+  <hr class="bg-primary mx-20">
+  <div class="cupan-list mx-20 mt-10">
+    <span class="fw-bold text-primary">Vouchers</span>
+    <ion-accordion-group>
+      <ion-accordion *ngFor="let item of userData && userData['video']" class="drop-shadow bg-white rounded-6 text-primary my-10">
+        <ion-item slot="header">
+          <ion-row>
+              <ion-col>
+                <b>Date</b>
+              </ion-col>
+              <ion-col>
+                {{item.contest_date | date: 'dd/MM/yyyy'}}
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <b>Status</b>
+            </ion-col>
+            <ion-col>   
+              <ion-label *ngIf="item.coupon_url && item.video_url">Available</ion-label>
+              <ion-label *ngIf="!item.coupon_url && !item.video_url">Upload Video</ion-label>
+              <ion-label *ngIf="!item.coupon_url && item.video_url">Pending</ion-label>  
+            </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <b>Price</b>
+          </ion-col>
+          <ion-col>
+            
+            <ion-label>{{item.coupon_claimed}}</ion-label>
+ 
+          </ion-col>
+      </ion-row>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <div *ngIf="item.coupon_url && item.video_url">
+            <!-- <img [src]="item.coupon_url" alt="som" style="height:162px ;"> -->
+            <div class="coupon-card">
+              <img src="/assets/img/amazon-gift.png" alt="">
+              <div class="voucher">
+                you have won amazon voucher worth {{item.coupon_claimed}}
+                <input type="text" [value]="item.coupon_url" class="w-100"  id="myInput" style="pointer-events: none;"> 
+                </div>
+                <div class="ion-text-center mt-10">
+                  <button (click)="writeToClipboard(item.coupon_url)">Copy</button>
+
+                </div>
+
+            </div>
+          </div>
+          <div *ngIf="!item.coupon_url && item.video_url">
+            <div class="pending_status">
+              Your coupon code will be available soon
+            </div>
+          </div>
+  
+          <div *ngIf="!item.coupon_url && !item.video_url" >
+            <div class="claim-prize-bg" *ngIf="!url">
+              <div class="claim-prize-body">
+                <div class="upload-video rounded-6">
+                  <div class="py-10" (click)="file.click()">
+                    <span class="ion-text-center">
+                      <ion-icon name="add"></ion-icon>
+                    </span>
+                    <span>Choose a video from your gallery</span>
+                  </div>
+                </div>
+                <div class="claim-prize-btn my-20">
+                </div>
+              </div>
+             
+           </div>
+  
+  
+           <div class="claim-prize-bg" *ngIf="url">
+            <div class="claim-prize-body">
+              <div class="claim-prize-video rounded-6">
+                <video style="height: 132px;
+                width: 100%;" [src]="url" *ngIf="format==='video' && url" height="200" controls>
+             </video>
+                <span class="trash-bin" (click)="anotherFile()">
+                  <ion-icon name="trash"></ion-icon>
+                </span>
+              </div>
+              <div class="claim-prize-btn my-20">
+                <div class="bg-primary text-white w-100 py-20 rounded-6 fs-3 ion-text-center" (click)="submitFile(item,userData)">Submit</div>
+              </div>
+            </div>
+           </div>
+  
+          </div>
+        </div>
+      </ion-accordion>
+  
+  
+    </ion-accordion-group>
+  </div>
+</ion-content>
+
+
+
+<!-- 
+ <ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <h2 class="fs-3 text-primary">Claim Your Prize</h2>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-icon name="close-circle-outline" class=" text-primary"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="pre-loader" style="visibility: hidden;" id="preLoader">
+    <span class="loader m-20"></span>
+  </div>
+ <div class="claim-prize-bg" *ngIf="!url">
+    <div class="claim-prize-body">
+      <div class="upload-video rounded-6">
+        <div class="py-10" (click)="file.click()">
+          <span class="ion-text-center">
+            <ion-icon name="add"></ion-icon>
+          </span>
+          <span>Choose a video from your gallery</span>
+        </div>
+      </div>
+      <div class="claim-prize-btn my-20">
+      </div>
+    </div>
+    <div class="claim-prize-cupan-bg">
+      <div class="claim-prize-cupan-header">
+        <span class="fs-3">Your Voucher / Coupon Code</span>
+      </div>
+      <div class="claim-prize-cupan-body-content">
+        <div class="cupan-code">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="auto">
+              <img src="assets/img/amazon-logo.png" alt="">
+            </ion-col>
+            <ion-col>
+              <span class="d-block fp-5 text-praimary py-5">Use this coupon code at checkout:</span>
+              <span class="fs-3 text-primary fw-bold py-5 d-inline-block">SKYMET100000</span>
+              <span class="cupan-copy d-inline-block">copy
+                <ion-icon name="document-outline"></ion-icon>
+              </span>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+ </div>
+
+  <div class="claim-prize-bg" *ngIf="url">
+    <div class="claim-prize-body">
+      <div class="claim-prize-video rounded-6">
+        <video style="height: 132px;
+        width: 100%;" [src]="url" *ngIf="format==='video' && url" height="200" controls>
+     </video>
+        <span class="trash-bin" (click)="anotherFile()">
+          <ion-icon name="trash"></ion-icon>
+        </span>
+      </div>
+      <div class="claim-prize-btn my-20">
+        <div class="bg-primary text-white w-100 py-20 rounded-6 fs-3 ion-text-center" (click)="submitFile()">Submit</div>
+      </div>
+    </div>
+    <div class="claim-prize-cupan-bg">
+      <div class="claim-prize-cupan-header">
+        <span class="fs-3">Your Voucher / Coupon Code</span>
+      </div>
+      <div class="claim-prize-cupan-body-content">
+        <div class="cupan-code">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="auto">
+              <img src="assets/img/amazon-logo.png" alt="">
+            </ion-col>
+            <ion-col>
+              <span class="d-block fp-5 text-praimary py-5">Use this coupon code at checkout:</span>
+              <span class="fs-3 text-primary fw-bold py-5 d-inline-block">SKYMET100000</span>
+              <span class="cupan-copy d-inline-block">copy
+                <ion-icon name="document-outline"></ion-icon>
+              </span>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content> -->
+

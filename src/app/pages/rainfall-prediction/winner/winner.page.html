@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-end">
+      <span class="close-btn" routerLink="/rainfall-prediction/user-dashboard">
+        <ion-icon name="close"></ion-icon>
+      </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="winner">
+  <div class="user-img-bg ion-text-center" style="background-image: url(assets/img/winner-bg.png);">
+    <img class="crown" src="assets/img/crown.svg" alt="">
+    <img [src]="users && users.profile_image ? users.profile_image:'assets/img/user-01.png'" class="user-img">
+  </div>
+
+  <div class="winner-content ion-text-center mt-20">
+    <h1 class="my-0">CONGRATULATIONS!</h1>
+    <h2 class="mt-0 mb-20">" {{users && users.contestant_name}} "</h2>
+    <span class="score fs-4">{{users && users.score}} Points</span>
+  </div>
+
+  <div class="share-bg ion-text-center">
+    <p>Share your achievement or check leaderboard</p>
+    <div class="action-btn">
+      <div class="item" routerLink="/rainfall-prediction/user-dashboard">
+        <span class="ion-activatable ripple-parent">
+          <ion-icon name="person"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </span>
+        <label>Leaderboard</label>
+      </div>
+      <div class="item">
+        <a href="https://play.google.com/store/apps/details?id=com.skymet.mumbairain">
+        <span class="ion-activatable ripple-parent">
+          <ion-icon name="star"></ion-icon>
+          <ion-ripple-effect></ion-ripple-effect>
+        </span>
+        <label>Rating</label>
+      </a>
+      </div>
+    
+    </div>
+    <div class="action-btn">
+    
+      <div class="item">
+        <share-buttons theme="circles-dark"
+        [include]="['facebook','linkedin','telegram','twitter','whatsapp']"
+        [showIcon]="true"
+        [showText]="false"
+        [url]="'https://play.google.com/store/apps/details?id=com.skymet.mumbairain'"
+        description="Mumbai Rain"
+        twitterAccount="SkymetWeather"
+        class="pt-5">
+        </share-buttons>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="winner-video ion-padding">
+    <div class="upload-video">
+
+    </div>
+  </div> -->
+</ion-content>

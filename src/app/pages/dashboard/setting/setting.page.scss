@@ -1,0 +1,76 @@
+
+
+ion-content {
+    --background: var(--mr-white);
+    color: var(--ion-color-primary);
+
+    ion-toolbar {
+        --background: var(--mr-white);
+        color: var(--ion-color-primary)
+    }
+    .unit {
+        ion-toggle {
+            width: 80px;
+            height: 25px;
+            padding: 5px;
+            --handle-width: 45px;
+            --handle-height: 25px;
+            --handle-border-radius: 50px;
+            --handle-background: #4B6995;
+            --handle-background-checked: #4B6995;
+            --background: var(--ion-color-tertiary);
+            --background-checked: var(--ion-color-tertiary);
+            &::before {
+                content: 'mm';
+                position: absolute;
+                left: 17px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1;
+                font-size: 10px;
+                color: var(--mr-white);
+            }
+            &::after {
+                content: '%';
+                position: absolute;
+                right: 21px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+           
+
+        }
+    }
+    .notification {
+        ion-toggle {
+            width: 80px;
+            height: 25px;
+            padding: 5px;
+            --handle-width: 45px;
+            --handle-height: 25px;
+            --handle-border-radius: 50px;
+            --handle-background: #4B6995;
+            --handle-background-checked: #4B6995;
+            --background: var(--ion-color-tertiary);
+            --background-checked: var(--ion-color-tertiary);
+            &::before {
+                content: 'on';
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1;
+                color: var(--mr-white);
+            }
+            &::after {
+                content: 'off';
+                position: absolute;
+                right: 19px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+           
+
+        }
+    }
+}

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar class="px-20">
+    <ion-title class="px-0">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="9" class="ps-0">
+          <div class="my-0 title pb-0">Predict Rain</div>
+        </ion-col>
+        <ion-col size="3" class="pe-0 ion-text-end">
+          <span class="close-btn">
+            <ion-icon name="close"></ion-icon>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="prediction-bg">
+    <!-- start weather station -->
+    <div class="weather-station">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <span class="weather-station-icon">
+            <img src="assets/img/aws.svg" alt="">
+          </span>
+        </ion-col>
+        <ion-col size="9" class="px-10">
+          Weather Station: <br />
+          <strong>Andheri, Mumbai</strong>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- end weather station -->
+
+    <div class="prediction-form mt-25">
+      <label>Enter your rain prediction value</label>
+      <ion-input class="mt-5" placeholder="eg.: 2mm"></ion-input>
+      <ion-button class="mt-20">Submit</ion-button>
+    </div>
+  </div>
+</ion-content>

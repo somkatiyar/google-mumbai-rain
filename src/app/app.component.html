@@ -1,0 +1,85 @@
+
+
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+
+      <ion-content>
+  
+        <span class="d-block fs-1 my-0">
+          <ion-header>
+            <ion-toolbar>
+              <ion-menu-button class="py-0" slot="start">
+                <ion-icon name="close" class="fs-3"></ion-icon>
+              </ion-menu-button>
+            </ion-toolbar>
+          </ion-header>
+        </span>
+        <ion-list id="inbox-list" class="bg-white text-primary">
+          <ion-list-header class="text-primary fs-4 mb-10 fw-bolder">Your Locations</ion-list-header>
+          <ion-menu-toggle auto-hide="false">
+            <div class="menu-item d-block" lines="none" detail="false" (click)="dataById(p)"
+              *ngFor="let p of searchedLoc; let i = index">
+              <div class="bg-white rounded-6 drop-shadow mb-10 w-100">
+                <ion-row class="ion-align-items-center py-10 px-10">
+                  <ion-col size="auto">
+                    <ion-icon [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label class="d-block fs-5">{{p.label }}</ion-label>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-icon name="close" (click)="removeLocation(i)"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <div class="add-location px-10 mt-10">
+              <ion-row class="ion-align-items-center">
+                <ion-col size="auto" class="ion-align-self-center fs-4">
+                  <ion-icon name="add-circle-outline"></ion-icon>
+                </ion-col>
+                <ion-col class="ion-align-self-start">
+                  <ion-label class="d-block fw-bold" (click)="goToAddLocation()">Add Location</ion-label>
+                </ion-col>
+              </ion-row>
+            </div>
+
+            <div class="monsoon-news mt-20 px-10 fw-bolder fs-4">
+              <span class="d-block pb-10" [routerLink]="['/dashboard/news']" routerLinkActive="router-link-active">Monsoon News</span>
+              <span class="d-block" #contest [routerLink]="['/rainfall-prediction/login']" routerLinkActive="router-link-active"></span>
+            </div>
+          </ion-menu-toggle>
+        </ion-list>
+
+
+        <!-- start prediction banner -->
+    <!-- <span *ngIf="contestAlive" (click)="contest.click()">
+      <a  class="prediction-banner ion-activatable ripple-parent">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="8">
+            <h2>Forecast Rain & Win <strong>&#8377;100,000</strong></h2>
+            <h2>* Amazon Voucher</h2>
+            <p>
+              Limited time offer
+            </p>
+          </ion-col>
+          <ion-col size="4" class="px-0">
+            <div class="banner-img">
+              <img src="assets/img/rain-banner.svg" alt="">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-ripple-effect></ion-ripple-effect>
+      </a>
+    </span> -->
+        <!-- end prediction banner -->
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+
+</ion-app>

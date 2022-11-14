@@ -1,0 +1,45 @@
+{
+  "bounds": [80.1674241, 12.8943099, 80.3012556, 13.1745425],
+  "center": [80.23433985, 13.034426199999999, 0],
+  "created": 1448539518176,
+  "filesize": 17566,
+  "format": "pbf",
+  "id": "planemad.d55p62y4",
+  "mapbox_logo": true,
+  "maxzoom": 13,
+  "minzoom": 0,
+  "modified": 1448539517573,
+  "name": "chennai-relief-camps-all.geojson",
+  "private": false,
+  "scheme": "xyz",
+  "tilejson": "2.2.0",
+  "tiles": [
+    "https://a.tiles.mapbox.com/v4/planemad.d55p62y4/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ",
+    "https://b.tiles.mapbox.com/v4/planemad.d55p62y4/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ"
+  ],
+  "vector_layers": [
+    {
+      "description": "",
+      "fields": {
+        "Name": "String",
+        "altitudeMode": "String",
+        "begin": "String",
+        "description": "String",
+        "drawOrder": "String",
+        "end": "String",
+        "extrude": "Number",
+        "icon": "String",
+        "tessellate": "Number",
+        "timestamp": "String",
+        "visibility": "Number"
+      },
+      "id": "chennai-relief-camps-all",
+      "maxzoom": 22,
+      "minzoom": 0,
+      "source": "planemad.d55p62y4",
+      "source_name": "chennai-relief-camps-all.geojson"
+    }
+  ],
+  "version": "1.0.0",
+  "webpage": "https://a.tiles.mapbox.com/v4/planemad.d55p62y4/page.html?access_token=pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ"
+}

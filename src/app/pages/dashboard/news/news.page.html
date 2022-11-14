@@ -1,0 +1,76 @@
+
+
+<ion-content class="ion-padding">
+  <div class="lts-news">
+   <ion-header>
+    <ion-toolbar>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="auto" class="ps-0">
+          <span class="fs-3 back-btn"><ion-icon name="chevron-back"></ion-icon></span>
+        </ion-col>
+        <ion-col class="ion-align-self-start px-0">
+          <span class="fw-bold" (click)="goBack()">Back</span>
+        </ion-col>
+        <ion-col size="auto" class="ion-align-self-start">
+          <span class="fs-6 text-primary">Last Updates: 24 hrs ago</span>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+   </ion-header>
+  </div>
+  <div class="news-slider mt-20">
+     <swiper [config]="nSlider" #newsSlider>
+      <ng-template swiperSlide>
+        <div class="rounded-pill text-primary drop-shadow fs-5 fw-bold px-20  py-10 me-5" (click)="newTitle('all')" [ngClass]="currentNews == 'all' ? 'active' : ''">
+          <span>All</span>
+        </div>
+      </ng-template>
+
+      <!-- <ng-template swiperSlide>
+        <div class="rounded-pill text-primary drop-shadow fs-5 fw-bold px-10 py-10 mx-10"(click)="newTitle('Water logging')" [ngClass]="currentNews == 'Water logging' ? 'active' : ''">
+          <span>Water logging</span>
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="rounded-pill text-primary drop-shadow fs-5 fw-bold px-20 py-10 ms-10"(click)="newTitle('Flood')" [ngClass]="currentNews == 'Flood' ? 'active' : ''">
+          <span class="">Flood</span>
+        </div>
+      </ng-template>
+    
+
+      <ng-template swiperSlide>
+        <div class="rounded-pill text-primary drop-shadow fw-bold fs-5 px-20 py-10 ms-5" (click)="newTitle('Alert')" [ngClass]="currentNews == 'Alert' ? 'active' : ''">
+          <span>Alert</span>
+        </div>
+      </ng-template> -->
+    </swiper>
+
+ 
+
+  
+
+    <ion-card class="py-10 px-10 mx-0 drop-shadow bg-white mt-20" *ngFor="let item of news">
+      <ion-card-content (click)="newsDetail(item)" class="px-0 py-0">
+        <ion-row class="ion-align-item-center">
+          <ion-col size="8" class="pe-0">
+            <span class="text-primary">{{item.title}}</span>
+           <!-- <span class=" fs-5 d-block pt-5" [innerHTML]="item.content">The IMD on Saturday declared the arrival of southwest monsoon over</span> -->
+           <small class="d-block pt-10 half-opc">{{item.date}},{{item.time}}</small>
+          </ion-col>
+          <ion-col size="4">
+            <div class="news-image w-100">
+              <img [src]="item.image ? item.image : 'assets/img/noimage.png'" alt="" class="rounded-4">
+            </div>
+            
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="!news" id="nodata">
+      No Data
+    </div>
+   
+  </div>
+
+</ion-content>

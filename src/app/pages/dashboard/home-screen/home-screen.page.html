@@ -1,0 +1,225 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="body-content-bg" *ngIf="dashboardData && dashboardData['actual'] &&  dashboardData['actual']['icon']"
+   style="background: url('{{getImages(dashboardData.actual.icon) ? getImages(dashboardData.actual.icon) : getBaseImage() }}') no-repeat 0 0/cover; position: relative; min-height: 400px; background-position-y: bottom;">
+    <!-- start the header part here -->
+    <ion-header>
+      <ion-toolbar>
+        <ion-row class="ion-align-items-center mb-20 px-10 pt-10">
+          <ion-col size="auto" class="ion-align-self-start ps-0">
+            <ion-menu-button class="py-0 fs-1 text-primary ps-0">
+              <ion-icon name="reorder-two-outline"></ion-icon>
+            </ion-menu-button>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-menu-button style="display: inherit;">
+            <span class="text-prmary"  style=" display: inline-flex; align-items: center; gap: 3px; line-height: 1.5;">
+              <ion-icon name="locate-outline"></ion-icon>
+              <!-- {{dashboardData && dashboardData['metainfo'] ?  dashboardData['metainfo']['TEHSIL_ALIAS_NAME'] :'NA'}},
+
+              {{dashboardData && dashboardData['metainfo'] ?  dashboardData['metainfo']['DISTRICT_NAME'] :'NA'}} -->
+
+               {{getAliasName(dashboardData && dashboardData['metainfo'])}}
+               
+            </span>
+          </ion-menu-button>
+        
+        </ion-col>
+        <ion-col size="auto" >
+          <span routerLink="/dashboard/map" class="fs-3 ion-justify-content-center d-flex">
+            <ion-icon name="navigate-outline"></ion-icon>
+          </span>
+          <span class="d-block fs-5 fw-bold">Navigate</span>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+   </ion-header>
+    <!-- start the body content part here -->
+    <ion-row class="ion-align-item-center  ion-padding-horizontal">
+      <ion-col size="6">
+        <span class="fs-1 fw-bolder d-flex ion-align-items-center g-1 text-primary">
+          {{dashboardData && dashboardData['actual'] ? dashboardData['actual']['tmp'] :'NA'}}
+
+          <small class="fs-3 text-primary">°C</small></span>
+        <span class="d-block text-primary">
+          {{dashboardData && dashboardData['actual'] ? dashboardData['actual']['description'] :'NA'}}
+
+        </span>
+      </ion-col>
+      <ion-col size="6" class="ion-align-self-center text-end">
+        <span class="d-block fw-normal text-primary"> <b>{{formatTime(dashboardData && dashboardData['forecast'] &&  dashboardData['forecast']['date'])}}</b> </span>
+        <span class="d-block fs-5 text-primary">
+           {{dashboardData && dashboardData['forecast'] ?  dashboardData['forecast']['weekday'] :'NA'}} | {{getTime()}}
+        </span>
+      </ion-col>
+    </ion-row>
+    <!-- start the wter loging part here -->
+    <!-- <div class="water-logging">
+      <ion-row class="ion-align-item-center">
+        <ion-col size="auto">
+          <img src="assets/img/waves.svg" alt="" class="mt-5">
+        </ion-col>
+        <ion-col class="ion-align-self-center">
+          <span class="fs-5">water logging alert</span>
+        </ion-col>
+      </ion-row>
+    </div> -->
+  </div>
+  <!-- start the body content info part here -->
+  <div class="body-content-info ion-padding pt-10">
+    <span class="line-horizontal"></span>
+    <!-- start the raifall detail part here -->
+    <div class="rainfall-details mt-10">
+      <ion-row class="ion-align-item-center">
+        <ion-col size="3">
+          <div class="temprature h-100 py-10 ion-text-center drop-shadow rounded-8">
+            <span class="fw-normal">
+              <ion-icon name="thermometer-outline"></ion-icon>
+            </span>
+            <span class="d-flex ion-align-items-center ion-justify-content-center fw-bolder">{{dashboardData
+              && dashboardData['forecast'] ? dashboardData['forecast']['temp_max'] :'NA'}}<small
+                class="fs-4"><sup>0</sup>C</small></span>
+            <span class="fw-bold d-flex  text-tertiary ion-align-items-center ion-justify-content-center fs-5">H :
+              {{dashboardData && dashboardData['forecast'] ? dashboardData['forecast']['temp_max']
+              :'NA'}}<small><sup>0</sup>C</small></span>
+            <span class="fw-bold d-flex text-tertiary ion-align-items-center ion-justify-content-center fs-5">L :
+              {{dashboardData && dashboardData['forecast'] ? dashboardData['forecast']['temp_min']
+              :'NA'}}<small><sup>0</sup>C</small></span>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="rainfall bg-white rounded-8 drop-shadow py-10 ion-text-center h-100 alert-status">
+            <span class="d-block pb-10"> <img src="assets/img/rain.svg" alt=""></span>
+            <span class="fw-bolder">{{dashboardData && dashboardData['forecast'] ? dashboardData['forecast']['rain_qty']
+              :'NA'}} mm</span>
+            <span class="text-tertiary fw-bold d-block fs-5" style="line-height: 0.9rem;">{{dashboardData &&
+              dashboardData['forecast'] ? dashboardData['forecast']['raintext'] :'NA'}}</span>
+
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="wind bg-white rounded-8 drop-shadow ion-text-center h-100 alert-status">
+            <span class="d-block pb-10"> <img src="assets/img/Wind.svg" alt=""></span>
+            <span class="fw-bolder d-block ">{{dashboardData && dashboardData['forecast'] ?
+              dashboardData['forecast']['wind_spd'] :'NA'}} km/h</span>
+            <span class="text-tertiary fw-bold d-block fs-5" style="line-height: 0.9rem;">{{dashboardData &&
+              dashboardData['forecast'] ? dashboardData['forecast']['wind_shrt'] :'NA'}}</span>
+
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="wind bg-white rounded-8 drop-shadow py-10 ion-text-center h-100">
+            <span class="d-block pb-10"> <img src="assets/img/humidity.svg" alt=""></span>
+            <span class="fw-bolder d-block">{{dashboardData && dashboardData['forecast'] ?
+              dashboardData['forecast']['rh_max'] :'NA'}} %</span>
+            <span class="text-tertiary fw-bold d-block fs-5" style="line-height: 0.9rem;">{{dashboardData &&
+              dashboardData['forecast'] ? dashboardData['forecast']['heatindex'] :'NA'}}</span>
+
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- *ngIf="contestAlive" -->
+   <div class="predict-rain">
+      <!-- start prediction banner -->
+      <a routerLink="/rainfall-prediction/login" class="prediction-banner ion-activatable ripple-parent">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="8">
+            <h2>Forecast Rain & Win <strong>&#8377;100,000</strong></h2>
+            <h2 >* Amazon Voucher</h2>
+            <p>
+              Limited time offer
+            </p>
+          </ion-col>
+          <ion-col size="4" class="px-0">
+            <div class="banner-img">
+              <img src="assets/img/rain-banner.svg" alt="">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-ripple-effect></ion-ripple-effect>
+      </a>
+      <!-- end prediction banner -->
+      
+      <div class="winner-body mt-10">
+        <swiper [config]="nSlider" #winnerSlider>
+          <ng-template swiperSlide   *ngFor="let item of winners">
+            <div class="winner-item ion-text-center ms-20">
+             <img [src]="item && item.profile_image ? item.profile_image:'assets/img/user-01.png'" alt="">            
+              <h5>{{item.contestant_name}}</h5>
+              <span class="location">Andheri</span>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+   </div>
+   
+    <div class="rain-prediction text-primary bg-white mt-10">
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <span class="fw-bolder fs-4">{{rainlabeltext}}</span>
+
+        </ion-col>
+        <ion-col size="auto">
+        </ion-col>
+      </ion-row>
+      <div class="rainfall-unit bg-white drop-shadow rounded-10 px-10 py-10 mt-10">
+        <span class="text-tertiary">Rainfall in mm</span>
+        <canvas #lineCanvas></canvas>
+      </div>
+    </div>
+
+    <div class="rain-time-wrapper d-inline-flex g-2 my-10">
+      <div *ngFor="let item of rainfallTime;let i = index">
+        <button class="rounded-pill py-10 mx-10 ion-padding-horizontal text-center border" (click)="onRainTimeChange(i)" [ngClass]="{'active-rain': selectedRainIndex == i}">{{item.time}}</button>
+    </div>
+    </div>
+
+
+    <div class="mt-20 map-route bg-white text-primary">
+      <span class="fw-bolder fs-4">Stepping out? check the route!</span>
+      <div class="mt-10 d-block ion-text-center ion-padding"
+        style="background: url('assets/img/mapimg.png'); background-position: center center; background-size: cover; background-repeat: no-repeat; height: 100px;">
+        <button class="bg-primary rounded-pill text-white mt-20" (click)="mapPage()">open map route</button>
+      </div>
+    </div>
+    <div class="latest-news mt-20 bg-white">
+      <span class="fw-bolder fs-4 text-primary">Latest News</span> <span class="text-primary fw-bolder fs-5" style="float: right;" (click)="allNews()">All News</span>
+      <ion-card class="py-10 px-10 mx-0 drop-shadow" *ngFor="let item of trendingNews | paginate: { itemsPerPage: 3, currentPage: p }">
+        <ion-card-content (click)="newsDetail(item)">
+          <ion-row class="ion-align-item-center">
+            <ion-col size="8">
+              <span class="text-primary">{{item.title}}</span>
+              <!-- <span class=" fs-5 d-block pt-5">{{item.content}}</span> -->
+              <small class="d-block pt-10 half-opc">{{item.date}},{{item.time}}</small>
+            </ion-col>
+            <ion-col size="4">
+              <div class="news-image w-100">
+                <img [src]="item.image ? item.image :'assets/img/noimage.png'" alt="" class="rounded-4">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+
+    <div class="our-logo d-flex ion-justify-content-center g-2 bg-white text-primary pt-10 ion-align-items-center">
+      <span class="fw-bold d-inline-flex fs-4">Powered By</span>
+      <span class="d-inline-block">
+        <img src="assets/img/Skymet_108x20.png" alt="" style="width:166px">
+      </span>
+    </div>
+  </div>
+
+
+
+</ion-content>

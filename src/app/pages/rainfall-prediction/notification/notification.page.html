@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar class="px-20">
+    <ion-title class="px-0">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="9" class="ps-0">
+          <div class="my-0 title pb-0">Notification</div>
+          <!-- <span class="sub-title">Contest Alerts</span> -->
+        </ion-col>
+        <ion-col size="3" class="pe-0 ion-text-end">
+          <span class="close-btn">
+            <ion-icon name="close"></ion-icon>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="notification-bg">
+    <!-- item -->
+    <div class="notification-item winner">
+      <h2>You Won weekly contest,</h2>
+      <p>One of our team member will contact you soon for prize.</p>
+      <span>3 hours</span>
+    </div>
+    <!-- item -->
+    <div class="notification-item">
+      <h2>You Won weekly contest,</h2>
+      <p>One of our team member will contact you soon for prize.</p>
+      <span>3 hours</span>
+    </div>
+
+    <!-- start no notification -->
+    <div class="no-notification mt-20">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="9">
+          There are <br />
+          <strong>no new notifications</strong>
+        </ion-col>
+        <ion-col size="3" class="ion-text-end">
+          <span class="notification-icon">
+            <ion-icon name="notifications"></ion-icon>
+          </span>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- end no notification -->
+  </div>
+</ion-content>

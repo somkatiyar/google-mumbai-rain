@@ -1,0 +1,61 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>welcome</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<!-- home.page.html -->
+<ion-content class="ion-padding bg-white">
+  <div class="slider-bg">
+    <swiper>
+      <ng-template swiperSlide>
+        <div>
+          <ion-card class="rounded-8 no-shadow bg-slide-1 text-primary px-30 py-30">
+            <img src="assets/img/slide-1.svg" alt="">
+            <ion-card-header class="mt-20">
+              <ion-card-title>Stay ahead of the weather</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
+              with 15 min forecasts & Hyperlocal rain Prediction (2 hours)
+            </ion-card-content>
+          </ion-card>
+          <button class="rounded-pill  px-30 mt-20 " (click)="swipeNext()">next</button>
+        </div>
+      </ng-template>
+
+      <ng-template swiperSlide>
+        <div>
+          <ion-card class="rounded-8 no-shadow bg-slide-2 text-primary px-30 py-30">
+            <img src="assets/img/slide-2.svg" alt="">
+            <ion-card-header class="mt-20">
+              <ion-card-title>Navigate through the rain</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
+              check rain and water logging status on your route with our weather app
+            </ion-card-content>
+          </ion-card>
+          <button class="rounded-pill px-30 mt-20" (click)="swipeNext()">next</button>
+        </div>
+      </ng-template>
+
+      <ng-template swiperSlide>
+        <div>
+          <ion-card class="rounded-8 no-shadow bg-slide-3 text-primary px-30 py-30">
+            <img src="assets/img/slide-3.svg" alt="">
+            <ion-card-header class="mt-20">
+              <ion-card-title>Trustworthy monsoon updates</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
+              get latest updates for monsoon, rains & alert from reliable sources
+            </ion-card-content>
+          </ion-card>
+          <button class="rounded-pill px-30 mt-20" (click)="weatherData()">next</button>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+  
+</ion-content>

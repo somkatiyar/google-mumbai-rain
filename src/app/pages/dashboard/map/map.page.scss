@@ -1,0 +1,690 @@
+@import '~swiper/scss';
+@import '~@ionic/angular/css/ionic-swiper';
+
+// #map { height: 100vh; }
+
+.rain-marker-icon{
+	    width: 50px!important;
+    height: 50px!important;
+    border-radius: 50%!important;
+    padding: 7px 5px 5px 7px;
+}
+.rain-marker-icon-inner{
+	width: 35px!important;
+    height: 35px!important;
+    color: #FFFFFF;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 50%!important;
+    padding: 7px 5px 5px 5px;
+    line-height: 10px;
+}
+
+.myClass {
+    right: 12px!important;
+    position: fixed;
+    top: 85px;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    background-color: #fff;
+    display: inline-flex;
+
+ }
+ .myClass span {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 7.5px !important;
+    color: var(--ion-color-primary);
+}
+ 
+ .myClass img {
+    // max-width: 100%;
+    // border: 0;
+    // width: 42px;
+    // height: 35px;
+    // align-items: center;
+    top: 37%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+}
+.leaflet-touch .leaflet-control-layers-toggle {
+    width: 35px;
+    height: 35px;
+}
+.leaflet-top {
+    top: 16px;
+    z-index: 99999;
+}
+
+.map-height-65 {
+    height: calc(100vh - 230px) !important;
+}
+.map-height-100 {
+    height: 100vh !important;
+}
+
+#map { 
+    position: relative; 
+    top: 0; 
+    bottom: 0; 
+    // width: 100%;
+    height: 100vh !important;
+}
+
+#rain {
+    position: relative;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    left: 30px;
+}
+
+.mapboxgl-canvas {
+    width: 100% !important;
+    position: absolute !important;
+}
+
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper-item {
+    justify-content: center;
+    align-items: center;
+    margin: 3px;
+}
+
+.time-item{
+    text-align: center;
+    padding: 4px 2px;
+}
+
+.active_layer {
+    color: #2BACE3;
+}
+
+.inactive_layer{
+    color:black;
+}
+
+
+
+
+  .map-source {
+    height: 230px;
+    bottom: 0;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    background-color: var(--mr-white);
+    padding: 10px 12px;
+    z-index: 999999;
+    transition: all 0.7s;
+
+    .btn-content-hide {
+        position: absolute;
+        display: inline-block;
+        width: 33px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--mr-white);
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        ion-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--ion-color-primary);
+        }
+    }
+
+    .weather-slider {
+        border-bottom: 1px solid var(--mr-gray-700);
+
+        .btn-slider {
+            .btn-next {
+                position: absolute;
+                overflow: hidden;
+                color: var(--ion-color-primary);
+                right: 15px;
+                top: 17px;
+            
+                ion-icon {
+                    font-size: 12px;
+                }
+            }
+            .btn-back {
+                position: absolute;
+                overflow: hidden;
+                color: var(--ion-color-primary);
+                position: absolute;
+                overflow: hidden;
+                color: var(--ion-color-primary);
+                left: 15px;
+                top: 17px;
+            
+                ion-icon {
+                    font-size: 12px;
+                }
+            }
+        }
+        .swiper {
+            .swiper-slide {
+                display: block !important;
+            }
+        }
+        .slider-item {
+            width: 100%;
+            padding-bottom: 7px;
+            text-align: center;
+            font-weight: bold;
+
+            
+        }
+
+        .highlight {
+            color: #819096 !important;
+            position: relative !important;
+        
+            &::after {
+                content: '';
+                width: 13px;
+                height: 3px;
+                border-radius: 20px;
+                background-color: #2BACE3 !important;
+                position: absolute;
+                display: block;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+
+    .map-info-bg {
+        overflow-y: auto;
+        height: calc(100% - 25px);
+    }
+    .source-destination {
+        .source-input {
+            border-bottom: 2px solid var(--mr-gray-700);
+        }
+        .wave-bg {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+    .rain {
+        .less-rain {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #2BACE3;
+                margin-right: 5px;
+            }
+        }
+        .light-rain {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #FFCC4D;
+                margin-right: 5px;
+            }
+        }
+        .moderate-rain {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #F26434;
+                margin-right: 5px;
+            }
+        }
+        .heavy-rain {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #B22C00;
+                margin-right: 5px;
+            }
+        }
+    }
+    
+    .cloud {
+        .clear-sky {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #4991b1;
+                margin-right: 5px;
+            }
+        }
+        .isolated {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #FFCC4D;
+                margin-right: 5px;
+            }
+        }
+        .half-cloudy {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #F26434;
+                margin-right: 5px;
+            }
+        }
+        .full-cloudy {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #B22C00;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .water-logging {
+        .less-waterlogging {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #f7a7f7;
+                margin-right: 5px;
+            }
+        }
+        .light-waterlogging {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #f791e1;
+                margin-right: 5px;
+            }
+        }
+        .moderate-waterlogging {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #ff00ffea;
+                margin-right: 5px;
+            }
+        }
+        .heavy-waterlogging {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #ff00ff;
+                margin-right: 5px;
+            }
+        }
+    }
+    
+    .heat-map {
+        .less-heat {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #FFCC4D;
+                margin-right: 5px;
+            }
+        }
+        .light-heat {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #f3c040cf;
+                margin-right: 5px;
+            }
+        }
+        .moderate-heat {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #F26434;
+                margin-right: 5px;
+            }
+        }
+        .heavy-heat {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #b21b00;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .lightning {
+        .less-lightning {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #4991b1;
+                margin-right: 5px;
+            }
+        }
+        .light-lightning {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #FFCC4D;
+                margin-right: 5px;
+            }
+        }
+        .moderate-lightning {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #F26434;
+                margin-right: 5px;
+            }
+        }
+        .heavy-lightning {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #B22C00;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .radar {
+        .less-radar {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #4991b1;
+                margin-right: 5px;
+            }
+        }
+        .light-radar {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #FFCC4D;
+                margin-right: 5px;
+            }
+        }
+        .moderate-radar {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #F26434;
+                margin-right: 5px;
+            }
+        }
+        .full-radar {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #B22C00;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .aws {
+        .low-aws {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #4991b1;
+                margin-right: 5px;
+            }
+        }
+        .medium-aws {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #FFCC4D;
+                margin-right: 5px;
+            }
+        }
+        .moderate-aws {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #F26434;
+                margin-right: 5px;
+            }
+        }
+        .high-aws {
+            position: relative;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background-color: #B22C00;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+
+.selectedItem{
+    background-color: red;
+}
+// .mapboxgl-ctrl-top-right {
+//     top: 16px !important;   
+// }
+.mapboxgl-ctrl-top-left {
+    top: 17px !important;   
+}
+.mapboxgl-ctrl-bottom-left {
+    display: none !important;
+}
+.mapboxgl-ctrl-bottom-right {
+    display: none !important;
+}
+.mapboxgl-marker{
+    top: 0 !important;
+    left: 0 !important;
+    will-change: transform !important;
+    opacity: 1 !important;
+    transition: opacity .2s !important;
+    width: 50px !important;
+    height: 50px !important;
+   // background-image: url("/assets/img/ligh1.png");
+}
+
+.custom-marker{
+    top: 0 !important;
+    left: 0 !important;
+    will-change: transform !important;
+    opacity: 1 !important;
+    transition: opacity .2s !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.disableEvent {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.enableEvent {
+    pointer-events: all;
+}
+.btn-content-show {
+    position: absolute !important;
+    bottom: -22px !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgb(0 0 0 / 67%) !important;
+    z-index: 9999 !important;
+    font-size: 1.5rem !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    color: var(--mr-white) !important;
+    padding-top: 4px !important;
+
+}
+
+.custom-header {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    ion-toolbar {
+        --background: transparent;
+        --border-width: 0;
+
+        .backtohome {
+            max-width: 71px;
+            //float: right;
+
+            ion-col {
+                padding-bottom: 2px;
+            }
+    
+        }
+    }
+}
+.map-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+    z-index: 9999;
+
+    ion-toolbar {
+        --background: transparent;
+    }
+}

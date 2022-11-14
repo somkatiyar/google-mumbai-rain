@@ -1,0 +1,13 @@
+
+<div class="container">
+  <div id="directionMap" #directionMap ></div>
+  <div id="layerIcon" (click)="layerMap()">
+     <img src="assets/icon/layers.png" alt="">
+  </div>
+  <div id="instruction_toggle" *ngIf="isRoute" class="mt-0 instructionBtn">
+    <!-- <ion-toggle slot="start" id="inst_toggle_btn" checked (ionChange)="onInstructionToggleChange($event)"></ion-toggle> -->
+       <ion-icon *ngIf=" getStatus()" name="chevron-down-circle" class="route-btn" (click)="onInstructionToggleChange()"></ion-icon>
+    <ion-icon *ngIf=" !getStatus()" name="chevron-up-circle" class="route-btn" (click)="onInstructionToggleChange()"></ion-icon>
+
+  </div>
+</div>
